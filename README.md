@@ -32,34 +32,28 @@ A video example of the different stages can found [here](https://www.youtube.com
 ### Incremental Rewards (Sparse reward for each correctly placed block):
 (FetchStack*i* has _i_ blocks in the environment to stack)
 
-- FetchStack1Stage1-v1
 - FetchStack2Stage1-v1
 - FetchStack3Stage1-v1
 - FetchStack4Stage1-v1
 
-- FetchStack1Stage2-v1
 - FetchStack2Stage2-v1
 - FetchStack3Stage2-v1
 - FetchStack4Stage2-v1
 
-- FetchStack1Stage3-v1
 - FetchStack2Stage3-v1
 - FetchStack3Stage3-v1
 - FetchStack4Stage3-v1
 
-### Sparse Rewards (Single Sparse reward for completed stack):
+### Binary Rewards (Single Sparse reward for completed stack):
 
-- FetchStack1SparseStage1-v1
 - FetchStack2SparseStage1-v1
 - FetchStack3SparseStage1-v1
 - FetchStack4SparseStage1-v1
 
-- FetchStack1SparseStage2-v1
 - FetchStack2SparseStage2-v1
 - FetchStack3SparseStage2-v1
 - FetchStack4SparseStage2-v1
 
-- FetchStack1SparseStage3-v1
 - FetchStack2SparseStage3-v1
 - FetchStack3SparseStage3-v1
 - FetchStack4SparseStage3-v1
