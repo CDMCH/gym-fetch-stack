@@ -37,18 +37,18 @@ for num_blocks in [1, 2, 3, 4, 5, 6]:
 
         # Fetch
         register(
-            id='FetchStack{}{}-v1'.format(num_blocks, suffix),
+            id='FetchStack{}{}Stage2-v1'.format(num_blocks, suffix),
             entry_point='gym_fetch_stack.envs:FetchStack{}Env'.format(num_blocks),
             kwargs=kwargs,
             max_episode_steps=50 * num_blocks,
         )
 
-        for trainer_type in ['OneThirdIsStacking', 'OneTenthIsStacking', 'Easy']:
+        for trainer_type in ['Easy']:
             class_name = 'FetchStack{}Trainer{}Env'.format(num_blocks, trainer_type)
             if class_exist(class_name):
 
                 register(
-                    id='FetchStack{}{}Trainer{}-v1'.format(num_blocks, suffix, trainer_type),
+                    id='FetchStack{}{}Stage1-v1'.format(num_blocks, suffix, trainer_type),
                     entry_point='gym_fetch_stack.envs:{}'.format(class_name),
                     kwargs=kwargs,
                     max_episode_steps=50 * num_blocks,
@@ -57,7 +57,7 @@ for num_blocks in [1, 2, 3, 4, 5, 6]:
         class_name = 'FetchStack{}TestEnv'.format(num_blocks)
         if class_exist(class_name):
             register(
-                id='FetchStack{}{}Test-v1'.format(num_blocks, suffix),
+                id='FetchStack{}{}Stage3-v1'.format(num_blocks, suffix),
                 entry_point='gym_fetch_stack.envs:{}'.format(class_name),
                 kwargs=kwargs,
                 max_episode_steps=50 * num_blocks,
