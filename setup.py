@@ -5,7 +5,7 @@ setup(name='gym_fetch_stack',
       description='OpenAI Gym Fetch Stack, modified from the OpenAI robotics Mujoco fetch environments',
       zip_safe=False,
       install_requires=[
-          'gym', 'mujoco_py>=1.50' 'imageio'
+          'numpy', 'gym', 'mujoco_py>=1.50' 'imageio'
       ],
       package_data={'gym': [
         'assets/LICENSE.md',
