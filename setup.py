@@ -1,5 +1,6 @@
 from setuptools import setup
 
+
 setup(name='gym_fetch_stack',
       version=1.0,
       description='OpenAI Gym Fetch Stack, modified from the OpenAI robotics Mujoco fetch environments',
