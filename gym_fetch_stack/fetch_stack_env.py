@@ -17,7 +17,7 @@ class FetchStackEnv(robot_env.RobotEnv):
         self, model_path, num_blocks, n_substeps, gripper_extra_height, block_gripper,
         target_in_the_air, target_offset, obj_range, target_range,
         distance_threshold, initial_qpos, reward_type, goals_on_stack_probability=1.0, allow_blocks_on_stack=True,
-            all_goals_always_on_stack=False
+            all_goals_always_on_stack=False, viewer_mode: str="", return_pixel_obs: bool = False
     ):
         """Initializes a new Fetch environment.
 
@@ -58,6 +58,8 @@ class FetchStackEnv(robot_env.RobotEnv):
         self.location_record_file_number = 0
         self.location_record_steps_recorded = 0
         self.location_record_max_steps = 2000
+        self.viewer_mode = viewer_mode
+        self.return_pixel_obs = return_pixel_obs
 
         super(FetchStackEnv, self).__init__(
             model_path=model_path, n_substeps=n_substeps, n_actions=4,
@@ -240,20 +242,31 @@ class FetchStackEnv(robot_env.RobotEnv):
         #     gripper_vel,
         # ])
 
-        return {
+        obs = {
             'observation': obs.copy(),
             'achieved_goal': achieved_goal.copy(),
             'desired_goal': self.goal.copy(),
         }
 
+        if self.return_pixel_obs:
+            obs["pixel_observation"] = self._get_viewer()._read_pixels_as_in_window()
+
+        return obs
+
     def _viewer_setup(self):
-        body_id = self.sim.model.body_name2id('robot0:gripper_link')
-        lookat = self.sim.data.body_xpos[body_id]
-        for idx, value in enumerate(lookat):
-            self.viewer.cam.lookat[idx] = value
-        self.viewer.cam.distance = 2.5
-        self.viewer.cam.azimuth = 132.
-        self.viewer.cam.elevation = -14.
+        if self.viewer_mode == "default":
+            body_id = self.sim.model.body_name2id('robot0:gripper_link')
+            lookat = self.sim.data.body_xpos[body_id]
+            for idx, value in enumerate(lookat):
+                self.viewer.cam.lookat[idx] = value
+            self.viewer.cam.distance = 2.5
+            self.viewer.cam.azimuth = 132.
+            self.viewer.cam.elevation = -14.
+        elif self.viewer_mode == "train_using_pixel_obs":
+            self.viewer.cam.type = const.CAMERA_FIXED
+            self.viewer.cam.fixedcamid = 3
+        else:
+            raise NotImplementedError(f"viewer_mode={self.viewer_mode} is not supported.")
 
     def _render_callback(self):
         # Visualize target.
