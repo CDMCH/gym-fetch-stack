@@ -1,4 +1,4 @@
-numpy>=1.21.0
+imageio
 gym==0.17
 mujoco_py>=1.50
-imageio
+numpy>=1.21.0
